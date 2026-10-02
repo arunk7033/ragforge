@@ -87,12 +87,8 @@ answer = rag.ask("What is our refund policy?")
 
 ## Website
 
-The marketing site and login screen live in [`site/`](site), built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com) as a fully static site.
-
-| Page | Path | Description |
-| --- | --- | --- |
-| Landing | `/` | Hero, platform features, use cases, pipeline walkthrough, and get-started section. |
-| Log in | `/login` | Email/password form with GitHub and SSO options. |
+The marketing site lives in [`site/`](site), built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com) as a fully static site.
+Its "Log in" button opens the web app.
 
 ```bash
 cd site
@@ -101,21 +97,73 @@ npm run dev     # http://localhost:4321
 npm run build   # static output in site/dist, deployable to Vercel, Netlify, or GitHub Pages
 ```
 
-All site settings (links, tagline, contact email, auth endpoint) live in [`site/src/data/site.ts`](site/src/data/site.ts).
-Login is UI-only until `authEndpoint` is set there; the form then posts credentials to that URL, and the
-GitHub and SSO buttons link to `<authEndpoint>/github` and `<authEndpoint>/sso`.
+All site settings (links, tagline, contact email) live in [`site/src/data/site.ts`](site/src/data/site.ts).
+Set `PUBLIC_APP_URL` at build time to point the login button at the deployed web app (defaults to `http://localhost:3000`).
+
+## Web app
+
+The signed-in app lives in [`web/`](web), built with [Next.js](https://nextjs.org) and [Supabase](https://supabase.com) Auth.
+
+| Page | Path | Description |
+| --- | --- | --- |
+| Log in | `/login` | "Continue with Google" via Supabase OAuth. |
+| Chat | `/chat`, `/chat/[id]` | Sidebar with previous chats (rename, delete), streaming chat window. |
+
+Chat history is stored in Supabase Postgres with row-level security, so users only see their own chats.
+Answers are placeholders from the backend until retrieval and generation are built.
+
+### Supabase and Google setup
+
+1. Create a project at [supabase.com](https://supabase.com). From **Project Settings → API**, copy the project URL and publishable (or anon) key.
+2. In the **SQL editor**, run [`web/supabase/migrations/20261003000000_chats.sql`](web/supabase/migrations/20261003000000_chats.sql).
+3. In [Google Cloud Console](https://console.cloud.google.com/apis/credentials), configure the OAuth consent screen, then create an **OAuth client ID** of type *Web application* with the authorized redirect URI `https://<project-ref>.supabase.co/auth/v1/callback`.
+4. In Supabase, open **Authentication → Sign In / Providers → Google**, enable it, and paste the Google client ID and secret.
+5. In **Authentication → URL Configuration**, set the site URL to `http://localhost:3000` and add `http://localhost:3000/auth/callback` to the redirect URLs (add your production URL later).
+
+```bash
+cd web
+cp .env.example .env.local   # fill in the Supabase URL and key
+npm install
+npm run dev                  # http://localhost:3000
+```
+
+## Backend
+
+The API lives in [`backend/`](backend), built with [FastAPI](https://fastapi.tiangolo.com). It verifies Supabase access tokens and
+currently returns placeholder responses: no model is called and uploaded files are not stored or processed.
+
+| Method | Path | Description |
+| --- | --- | --- |
+| `GET` | `/health` | Liveness check. |
+| `GET` | `/v1/me` | Current user, upload limits, and usage. |
+| `POST` | `/v1/chat/stream` | Streams a placeholder assistant reply as plain text. |
+| `GET` / `POST` | `/v1/documents` | List or upload documents (max 3 files, 15 MB combined; metadata kept in memory). |
+| `DELETE` | `/v1/documents/{id}` | Remove a document. |
+
+```bash
+cd backend
+cp .env.example .env         # set SUPABASE_URL
+uv sync
+uv run uvicorn app.main:app --reload --env-file .env   # http://localhost:8000/docs
+uv run pytest
+```
 
 ## Project structure
 
 ```text
 ragforge/
-├── site/                  # Landing page and login (Astro + Tailwind)
-│   ├── public/            # Fonts and favicon
+├── site/                  # Landing page (Astro + Tailwind, static)
 │   └── src/
 │       ├── components/    # Page sections and UI components
 │       ├── data/site.ts   # Site-wide configuration
-│       ├── layouts/       # Shared HTML layout
-│       └── pages/         # index.astro, login.astro
+│       └── pages/         # index.astro
+├── web/                   # Signed-in app (Next.js + Supabase)
+│   ├── src/app/           # login, auth callback, chat pages, /api/chat
+│   ├── src/components/    # Sidebar, ChatView
+│   └── supabase/          # SQL migrations
+├── backend/               # API (FastAPI)
+│   ├── app/routers/       # chat, documents, me
+│   └── tests/
 ├── LICENSE
 └── README.md
 ```
@@ -123,8 +171,9 @@ ragforge/
 ## Roadmap
 
 - [x] Landing page
-- [x] Login page (UI)
-- [ ] Authentication backend
+- [x] Google sign-in (Supabase Auth)
+- [x] Chat interface with saved history (placeholder answers)
+- [x] API skeleton with token verification (placeholder responses)
 - [ ] Ingestion connectors and chunking strategies
 - [ ] Hybrid retrieval and reranking
 - [ ] Citation-grounded generation

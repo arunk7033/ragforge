@@ -7,7 +7,6 @@ export const site = {
   docs: "https://github.com/arunk7033/ragforge#readme",
   email: "arunk7033@gmail.com",
   contact: "mailto:arunk7033@gmail.com",
-  login: "/login",
-  // Set to your auth backend (e.g. "https://app.ragforge.dev/api/auth/login") to enable sign-in.
-  authEndpoint: "",
+  // Sign-in lives in the Next.js app (web/). Set PUBLIC_APP_URL at build time for production.
+  login: `${import.meta.env.PUBLIC_APP_URL ?? "http://localhost:3000"}/login`,
 };

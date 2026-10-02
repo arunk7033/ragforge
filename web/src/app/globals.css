@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  --color-green: #b9ff66;
+  --color-dark: #191a23;
+  --color-gray: #f3f3f3;
+  --radius-card: 45px;
+  --shadow-card: 0px 5px 0px #191a23;
+}
+
+@theme inline {
+  --font-sans: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-2xl bg-dark px-9 py-5 text-lg text-white transition duration-200 hover:scale-105 hover:bg-green hover:text-dark disabled:pointer-events-none disabled:opacity-40;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-2xl border border-dark px-9 py-5 text-lg text-dark transition duration-200 hover:scale-105 hover:bg-dark hover:text-white disabled:pointer-events-none disabled:opacity-40;
+  }
+
+  .greenhead {
+    @apply rounded-[7px] bg-green px-[7px] text-dark;
+  }
+
+  .card {
+    @apply rounded-card border border-dark shadow-card;
+  }
+}

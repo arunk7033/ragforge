@@ -1,0 +1,21 @@
+[project]
+name = "ragforge-backend"
+version = "0.1.0"
+description = "ragforge API (FastAPI). Returns placeholder responses until retrieval and generation are built."
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "pyjwt[crypto]>=2.10",
+    "python-multipart>=0.0.20",
+]
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.13.1",
+    "pytest>=8.3",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
