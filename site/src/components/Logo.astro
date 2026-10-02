@@ -1,0 +1,17 @@
+---
+interface Props {
+  inverted?: boolean;
+}
+
+const { inverted = false } = Astro.props;
+---
+
+<span class="inline-flex items-center gap-2.5 text-[28px] font-medium tracking-tight">
+  <svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true">
+    <rect width="36" height="36" rx="9" fill={inverted ? "#b9ff66" : "#191a23"}></rect>
+    <path
+      d="M11 9h9a6 6 0 0 1 1.6 11.8L26 27h-4.6l-4-6H15v6h-4zm4 4v4h5a2 2 0 0 0 0-4z"
+      fill={inverted ? "#191a23" : "#b9ff66"}></path>
+  </svg>
+  <span class={inverted ? "text-white" : "text-dark"}>ragforge</span>
+</span>

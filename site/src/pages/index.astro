@@ -1,0 +1,21 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Hero from "../components/Hero.astro";
+import Integrations from "../components/Integrations.astro";
+import Platform from "../components/Platform.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+import UseCases from "../components/UseCases.astro";
+import Pipeline from "../components/Pipeline.astro";
+import GetStarted from "../components/GetStarted.astro";
+import { site } from "../data/site";
+---
+
+<MainLayout title={`${site.name} — ${site.tagline}`} description={site.description}>
+  <Hero />
+  <Integrations />
+  <Platform />
+  <CtaBanner />
+  <UseCases />
+  <Pipeline />
+  <GetStarted />
+</MainLayout>

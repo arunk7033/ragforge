@@ -1,0 +1,39 @@
+---
+import Section from "./Section.astro";
+import SectionTitle from "./SectionTitle.astro";
+import { site } from "../data/site";
+---
+
+<Section id="get-started">
+  <SectionTitle
+    title="Get started"
+    description="Run ragforge locally in minutes, or talk to us about deploying it in your own cloud."
+  />
+  <div class="grid gap-10 lg:grid-cols-2">
+    <div class="card flex flex-col gap-6 bg-gray p-8 sm:p-12">
+      <h3 class="text-2xl font-medium">Self-host</h3>
+      <p class="text-lg">Clone the repo and spin up the full stack with Docker Compose.</p>
+      <pre class="overflow-x-auto rounded-2xl bg-dark p-6 font-mono text-sm leading-7 text-gray sm:text-base"><code><span class="text-green">$</span> git clone {site.github}.git
+<span class="text-green">$</span> cd ragforge
+<span class="text-green">$</span> docker compose up</code></pre>
+      <a href={site.github} class="btn-primary mt-auto w-fit" target="_blank" rel="noopener">View on GitHub</a>
+    </div>
+    <div class="card flex flex-col gap-6 bg-green p-8 sm:p-12">
+      <h3 class="text-2xl font-medium">Enterprise</h3>
+      <p class="text-lg">
+        SSO, role-based access, private networking, and dedicated support for teams running RAG at scale.
+      </p>
+      <ul class="flex flex-col gap-3 text-lg">
+        {
+          ["Deploy in your VPC", "SOC 2-ready audit logging", "Custom connectors & evals", "Priority support SLA"].map((item) => (
+            <li class="flex items-center gap-3">
+              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-dark text-sm text-green">✓</span>
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+      <a href={site.contact} class="btn-primary mt-auto w-fit">Book a demo</a>
+    </div>
+  </div>
+</Section>

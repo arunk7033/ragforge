@@ -1,0 +1,44 @@
+---
+import Logo from "./Logo.astro";
+import { site } from "../data/site";
+
+const links = [
+  { href: "/#platform", label: "Platform" },
+  { href: "/#use-cases", label: "Use cases" },
+  { href: "/#pipeline", label: "How it works" },
+  { href: site.docs, label: "Docs" },
+  { href: site.github, label: "GitHub" },
+];
+---
+
+<footer class="mt-24 sm:px-5 md:mt-36">
+  <div class="mx-auto w-full max-w-[1240px] bg-dark px-6 py-14 text-white sm:rounded-t-card lg:px-16">
+    <div class="flex flex-col items-center justify-between gap-8 lg:flex-row">
+      <a href="#home" aria-label="Back to top"><Logo inverted /></a>
+      <ul class="flex flex-col items-center gap-5 sm:flex-row">
+        {links.map((link) => <li><a href={link.href} class="underline underline-offset-4">{link.label}</a></li>)}
+      </ul>
+    </div>
+
+    <div class="mt-14 flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+      <div class="flex flex-col gap-4 text-center lg:text-left">
+        <h3 class="greenhead mx-auto w-fit text-xl font-medium lg:mx-0">Contact us</h3>
+        <a href={site.contact} class="hover:underline">{site.email}</a>
+      </div>
+      <div class="flex flex-col items-center gap-5 rounded-[14px] bg-white/5 p-8 sm:flex-row sm:justify-between lg:w-[60%]">
+        <p class="text-center text-lg sm:text-left">Follow development and release notes on GitHub.</p>
+        <a
+          href={site.github}
+          class="shrink-0 rounded-[14px] bg-green px-8 py-4 text-dark transition hover:scale-105"
+          target="_blank"
+          rel="noopener">Watch the repo</a
+        >
+      </div>
+    </div>
+
+    <div class="mt-14 flex flex-col gap-4 border-t border-white/30 pt-8 text-center text-sm text-white/70 sm:flex-row sm:justify-between sm:text-left">
+      <span>© {new Date().getFullYear()} {site.name}. Released under the Apache 2.0 License.</span>
+      <a href={site.github} class="underline underline-offset-4" target="_blank" rel="noopener">Source on GitHub</a>
+    </div>
+  </div>
+</footer>
