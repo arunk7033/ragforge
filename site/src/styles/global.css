@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Grotesk";
+    src: url("/fonts/SpaceGrotesk-Regular.woff") format("woff");
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Grotesk";
+    src: url("/fonts/SpaceGrotesk-Medium.woff") format("woff");
+    font-weight: 500;
+    font-display: swap;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-2xl bg-dark px-9 py-5 text-lg text-white transition duration-200 hover:scale-105 hover:bg-green hover:text-dark;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-2xl border border-dark px-9 py-5 text-lg text-dark transition duration-200 hover:scale-105 hover:bg-dark hover:text-white;
+  }
+
+  .greenhead {
+    @apply rounded-[7px] bg-green px-[7px] text-dark;
+  }
+
+  .whitehead {
+    @apply rounded-[7px] bg-white px-[7px] text-dark;
+  }
+
+  .card {
+    @apply rounded-card border border-dark shadow-card;
+  }
+}

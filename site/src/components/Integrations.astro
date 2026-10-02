@@ -1,0 +1,18 @@
+---
+import Section from "./Section.astro";
+
+const integrations = ["OpenAI", "Anthropic", "Ollama", "pgvector", "Qdrant", "Elasticsearch", "OpenTelemetry"];
+---
+
+<Section>
+  <p class="mb-8 text-center text-sm uppercase tracking-[0.2em] text-dark/60">
+    Plugs into the stack you already run
+  </p>
+  <ul class="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 md:justify-between">
+    {
+      integrations.map((name) => (
+        <li class="text-2xl font-medium text-dark/40 grayscale transition hover:text-dark">{name}</li>
+      ))
+    }
+  </ul>
+</Section>

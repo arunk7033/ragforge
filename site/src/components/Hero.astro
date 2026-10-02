@@ -1,0 +1,29 @@
+---
+import Section from "./Section.astro";
+import HeroIllustration from "./HeroIllustration.astro";
+import { site } from "../data/site";
+---
+
+<Section id="home">
+  <div class="flex flex-col-reverse items-center gap-10 md:flex-row">
+    <div class="flex flex-col items-center gap-8 text-center md:w-1/2 md:items-start md:text-left">
+      <span class="rounded-full border border-dark px-4 py-1.5 text-sm">
+        Open source · Retrieval · Evaluation · Observability
+      </span>
+      <h1 class="text-[43px] font-medium leading-[1.1] md:text-6xl">
+        Ship RAG you can <span class="greenhead">trust</span> in production
+      </h1>
+      <p class="max-w-[520px] text-lg md:text-xl">
+        {site.name} is an end-to-end platform for retrieval-augmented generation: ingest any source,
+        retrieve with precision, generate grounded answers, and measure every step.
+      </p>
+      <div class="flex flex-col gap-4 sm:flex-row">
+        <a href="#get-started" class="btn-primary">Get started</a>
+        <a href={site.github} class="btn-secondary" target="_blank" rel="noopener">Star on GitHub</a>
+      </div>
+    </div>
+    <div class="w-full md:w-1/2">
+      <HeroIllustration />
+    </div>
+  </div>
+</Section>

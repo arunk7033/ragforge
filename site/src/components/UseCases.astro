@@ -1,0 +1,41 @@
+---
+import Section from "./Section.astro";
+import SectionTitle from "./SectionTitle.astro";
+import { site } from "../data/site";
+
+const cases = [
+  {
+    title: "Support copilots",
+    body: "Answer customer questions from help-center articles and past tickets, with citations agents can verify in one click.",
+  },
+  {
+    title: "Enterprise knowledge search",
+    body: "Unify wikis, drives, and internal docs behind a single grounded assistant that respects document-level permissions.",
+  },
+  {
+    title: "Compliance & legal review",
+    body: "Query contracts and policies with traceable sources and evaluation reports your auditors can actually read.",
+  },
+];
+---
+
+<Section id="use-cases">
+  <SectionTitle
+    title="Use cases"
+    description="Teams use ragforge wherever answers must be accurate, sourced, and auditable."
+  />
+  <div class="grid rounded-card bg-dark p-8 text-white sm:p-14 lg:grid-cols-3 lg:divide-x lg:divide-white/30">
+    {
+      cases.map((c, i) => (
+        <div class={`flex flex-col gap-5 py-8 lg:px-10 lg:py-0 ${i > 0 ? "border-t border-white/30 lg:border-t-0" : ""} first:pt-0 last:pb-0 lg:first:pl-0 lg:last:pr-0`}>
+          <h3 class="text-xl font-medium text-green">{c.title}</h3>
+          <p class="text-lg">{c.body}</p>
+          <a href={site.docs} class="mt-auto flex items-center gap-3 text-green" target="_blank" rel="noopener">
+            Explore
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      ))
+    }
+  </div>
+</Section>

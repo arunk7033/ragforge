@@ -1,0 +1,16 @@
+---
+interface Props {
+  variant?: "dark" | "light";
+}
+
+const { variant = "dark" } = Astro.props;
+const circle = variant === "dark" ? "#191a23" : "#ffffff";
+const arrow = variant === "dark" ? "#b9ff66" : "#191a23";
+---
+
+<svg width="41" height="41" viewBox="0 0 41 41" aria-hidden="true">
+  <circle cx="20.5" cy="20.5" r="20.5" fill={circle}></circle>
+  <path
+    d="M11.25 24.7a1.5 1.5 0 1 0 1.5 2.6zm19.52-8.31a1.5 1.5 0 0 0-1.06-1.84l-13.04-3.5a1.5 1.5 0 1 0-.78 2.9l11.6 3.1-3.11 11.6a1.5 1.5 0 1 0 2.9.78zM12.75 27.3l17.32-10-1.5-2.6-17.32 10z"
+    fill={arrow}></path>
+</svg>
